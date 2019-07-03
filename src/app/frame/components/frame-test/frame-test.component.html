@@ -1,0 +1,7 @@
+<div class="btn-group mt-3 mb-3" role="group" aria-label="Basic example">
+  <button class="btn btn-outline-primary btn-sm" (click)="addFrame()">Aggiungi un Record</button>
+  <button class="btn btn-outline-primary btn-sm" (click)="updateFrame()">Modifica Record 1</button>
+  <button class="btn btn-outline-primary btn-sm" (click)="deleteFrame()">Cancella Record 2</button>
+  <button class="btn btn-outline-primary btn-sm" (click)="selectFrame(1)">Recupera Record 1</button>
+</div>
+<app-frame-test-list [frames]="(frameFacade.frames$ | async).frames"></app-frame-test-list>
