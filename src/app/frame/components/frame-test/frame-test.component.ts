@@ -26,6 +26,7 @@ export class FrameTestComponent implements OnInit {
   }
 
   selectFrame(id: number) {
-    this.frameFacade.get(id); // N.B. Riceviamo il record originale Model Alpha dato il comportamento non persistente dell'API ;)
+    this.frameFacade.get(id);
+     // N.B. Riceviamo il record originale Model Alpha dato il comportamento non persistente dell'API ;)
   }
 }

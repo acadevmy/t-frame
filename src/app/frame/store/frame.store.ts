@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { tap, mapTo, map } from 'rxjs/operators';
 
 import { Store } from '../../shared/store';
 
@@ -33,6 +33,7 @@ export class FrameStore extends Store<FrameState> {
     tap(frame => {
       this.setState({
         ...this.state,
+        selectedFrame: {...frame},
         frames: this.state.frames.map(f => f.id === frame.id ? { ...f, ...frame } : f)
       });
     })
@@ -44,6 +45,7 @@ export class FrameStore extends Store<FrameState> {
       tap(newFrame => {
         this.setState({
           ...this.state,
+          selectedFrame: {...frame},
           frames: [...this.state.frames, newFrame]
         });
       })
@@ -55,6 +57,7 @@ export class FrameStore extends Store<FrameState> {
       tap(updatedFrame => {
         this.setState({
           ...this.state,
+          selectedFrame: {...frame},
           frames: this.state.frames.map(f => f.id === updatedFrame.id ? { ...f, ...updatedFrame } : f)
         });
       })

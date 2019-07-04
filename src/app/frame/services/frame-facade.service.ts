@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FrameStore } from '../store/frame.store';
 import { Frame } from '../models/frame.model';
+import { map } from 'rxjs/operators';
+import { Store } from 'src/app/shared/store';
+import { FrameState } from '../store/frame-state';
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +12,26 @@ export class FrameFacadeService {
 
   constructor(private frameStore: FrameStore) {}
 
-  frames$ = this.frameStore.state$; // NGRX: this.store.select(frameQuery.getAllFrames);
+  frames$ = this.frameStore.state$.pipe(map((state: FrameState) => state.frames)); // NGRX: this.store.select(frameQuery.getAllFrames);
+  selectedFrame$ = this.frameStore.state$.pipe(map((state: FrameState) => state.selectedFrame));
 
   init() {
     this.frameStore.getAll$().subscribe(); // NGRX: this.store.dispatch(new LoadFrames());
   }
 
   get(id: number) {
-    this.frameStore.get$(id).subscribe((selectedFrame) => console.log(selectedFrame)); // NGRX: this.store.dispatch(new SelectCar(carId));
+    return this.frameStore.get$(id).subscribe(); // NGRX: this.store.dispatch(new SelectCar(carId));
   }
 
   create(frame: Frame) {
-    this.frameStore.create$(frame).subscribe((createdFrame) => console.log(createdFrame));
+    return this.frameStore.create$(frame).subscribe();
   }
 
   update(frame: Frame) {
-    this.frameStore.update$(frame).subscribe((updatedFrame) => console.log(updatedFrame));
+    return this.frameStore.update$(frame).subscribe();
   }
 
   delete(frame: Frame) {
-    this.frameStore.delete$(frame).subscribe((deletedFrame) => console.log(deletedFrame));
+    return this.frameStore.delete$(frame).subscribe();
   }
 }
